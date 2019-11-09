@@ -16,10 +16,19 @@ public class USynth {
                 midiDevices[i] = MidiSystem.getMidiDevice(inf);
                 System.out.println("Position " + i + ": " + inf.getName() + " and " + inf.getDescription());
             } catch (MidiUnavailableException e) {
-                System.out.println("Requested MIDI component cannot be opened or created as it is unavailable.");
+                System.err.println("Requested MIDI component cannot be opened or created as it is unavailable.");
             }
            
             i++;
+        }
+        MidiDevice keyboard = midiDevices[4];
+        
+        if (!(keyboard.isOpen())) {
+            try {
+                keyboard.open();
+            } catch (MidiUnavailableException e) {
+                System.err.println("Requested MIDI component cannot be opened or created as it is unavailable.");
+            }
         }
     }
     
