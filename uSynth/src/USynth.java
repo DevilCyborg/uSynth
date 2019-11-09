@@ -42,9 +42,9 @@ public class USynth {
         synth.loadInstrument(instruments[9]);
         Soundbank soundbank = instruments[9].getSoundbank();
         System.out.println(synth.isSoundbankSupported(soundbank));
-                
-        MidiChannel[] midichannels = synth.getChannels();
-        midichannels[4].noteOn(60, 93);
+        
+        System.out.println("Latency = " + synth.getLatency());
+        System.out.println("Max Polyphony = " + synth.getMaxPolyphony());
     }
     
     public static void main(String[] args) {
