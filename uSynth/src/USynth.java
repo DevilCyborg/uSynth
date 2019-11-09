@@ -44,7 +44,7 @@ public class USynth {
         System.out.println(synth.isSoundbankSupported(soundbank));
                 
         MidiChannel[] midichannels = synth.getChannels();
-        midichannels[4].noteOn(60, 93);
+        midichannels[4].noteOn(60, 600);
     }
     
     public static void main(String[] args) {
