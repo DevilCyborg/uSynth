@@ -21,10 +21,11 @@ public class USynth {
             i++;
         }
         MidiDevice keyboard = midiDevices[1];
+        Synthesizer synth = null;
         Transmitter t = null;
         Receiver r = null;
         try {
-            MidiDevice synth = midiDevices[3];
+            synth = MidiSystem.getSynthesizer();
             if (!(synth.isOpen())){
                 synth.open();
                 r = synth.getReceiver();
@@ -41,8 +42,13 @@ public class USynth {
                 System.err.println("2 Requested MIDI component cannot be opened or created as it is unavailable.");
             }
         }
-        
         t.setReceiver(r);
+        
+        Instrument[] instruments = synth.getAvailableInstruments();
+        for (Instrument instrument : instruments) {
+            System.out.print(instrument.getName() + ", ");
+        }
+        synth.loadInstrument(instruments[9]);
         
         ShortMessage myMsg = new ShortMessage();
         try {
@@ -58,6 +64,7 @@ public class USynth {
     
     public static void main(String[] args) {
         USynth us = new USynth();
+        
     }
     
 }
