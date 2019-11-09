@@ -1,5 +1,4 @@
 import javax.sound.midi.*;
-import javax.sound.sampled.*;
 /**
  *
  * @author DevilCyborg
@@ -22,9 +21,17 @@ public class USynth {
             i++;
         }
         MidiDevice keyboard = midiDevices[1];
-        MidiDevice synth = midiDevices[3];
-        Transmitter t;
-        Receiver r;
+        Transmitter t = null;
+        Receiver r = null;
+        try {
+            MidiDevice synth = midiDevices[3];
+            if (!(synth.isOpen())){
+                synth.open();
+                r = synth.getReceiver();
+            }
+        } catch (MidiUnavailableException e) {
+            System.err.println(e);
+        }
         
         if (!(keyboard.isOpen())) {
             try {
@@ -35,15 +42,18 @@ public class USynth {
             }
         }
         
-        if (!(synth.isOpen())){
-            try {
-                synth.open();
-                r = synth.getReceiver();
-            } catch (MidiUnavailableException e) {
-                System.err.println("3 Requested MIDI component cannot be opened or created as it is unavailable.");
-            }
+        t.setReceiver(r);
+        
+        ShortMessage myMsg = new ShortMessage();
+        try {
+            myMsg.setMessage(ShortMessage.NOTE_ON, 0, 60, 93);
+        } catch (InvalidMidiDataException e) {
+            System.err.println(e);
         }
         
+        long timeStamp = keyboard.getMicrosecondPosition();
+        System.out.println(timeStamp);
+        r.send(myMsg, timeStamp);
     }
     
     public static void main(String[] args) {
