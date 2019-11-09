@@ -13,6 +13,13 @@ public class USynth {
         for (MidiDevice.Info inf : midiInfo){
             try {
                 midiDevices[i] = MidiSystem.getMidiDevice(inf);
+                if (midiDevices[i] instanceof Sequencer){
+                    System.out.print("This is a sequencer -> ");
+                } else if (midiDevices[i] instanceof Synthesizer) {
+                    System.out.print("This is a synthesizer -> ");
+                } else {
+                    System.out.print("What is this? -> ");
+                }
                 System.out.println("Position " + i + ": " + inf.getName() + " and " + inf.getDescription());
             } catch (MidiUnavailableException e) {
                 System.err.println("1 Requested MIDI component cannot be opened or created as it is unavailable.");
@@ -20,46 +27,44 @@ public class USynth {
            
             i++;
         }
-        MidiDevice keyboard = midiDevices[1];
+        Sequencer seq = null;
         Synthesizer synth = null;
-        Transmitter t = null;
-        Receiver r = null;
+        MidiDevice keyboard = midiDevices[4];
+        Transmitter t = null, tport = null;
+        Receiver rsynth = null, rseq = null;
         try {
             synth = MidiSystem.getSynthesizer();
             if (!(synth.isOpen())){
                 synth.open();
-                r = synth.getReceiver();
+                rsynth = synth.getReceiver();
             }
         } catch (MidiUnavailableException e) {
             System.err.println(e);
         }
         
-        if (!(keyboard.isOpen())) {
-            try {
-                keyboard.open();
-                t = keyboard.getTransmitter();
-            } catch (MidiUnavailableException e) {
-                System.err.println("2 Requested MIDI component cannot be opened or created as it is unavailable.");
+        try {
+            seq = MidiSystem.getSequencer();
+            System.out.println(seq.getDeviceInfo().getName());
+            if (!(seq.isOpen())) {
+                seq.open();
+                t = seq.getTransmitter();
+                rseq = seq.getReceiver();
+                tport = keyboard.getTransmitter();
             }
+        } catch (MidiUnavailableException e) {
+            System.err.println(e);
         }
-        t.setReceiver(r);
+        t.setReceiver(rsynth);
+        tport.setReceiver(rseq);
         
         Instrument[] instruments = synth.getAvailableInstruments();
         for (Instrument instrument : instruments) {
             System.out.print(instrument.getName() + ", ");
         }
+        System.out.println("");
         synth.loadInstrument(instruments[9]);
-        
-        ShortMessage myMsg = new ShortMessage();
-        try {
-            myMsg.setMessage(ShortMessage.NOTE_ON, 0, 60, 93);
-        } catch (InvalidMidiDataException e) {
-            System.err.println(e);
-        }
-        
-        long timeStamp = keyboard.getMicrosecondPosition();
-        System.out.println(timeStamp);
-        r.send(myMsg, timeStamp);
+        Soundbank soundbank = instruments[9].getSoundbank();
+        System.out.println(synth.isSoundbankSupported(soundbank));
     }
     
     public static void main(String[] args) {
