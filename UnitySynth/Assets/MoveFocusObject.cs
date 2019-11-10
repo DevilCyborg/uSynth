@@ -5,7 +5,7 @@ using System.Linq;
 
 public class MoveFocusObject : MonoBehaviour
 {
-	Rigidbody rb; // represents the Rigidbody component of the focus item
+	Rigidbody[] rb; // represents the Rigidbody component of the focus item
 	public float speed = 5f; // a multiplier for speed with note velocity
 	private float[] vel; // an array of velocities from key presses
 	private bool[] press; // an array of bools from key presses
@@ -29,7 +29,11 @@ public class MoveFocusObject : MonoBehaviour
 	
 	
 	void Start() {
-		rb = GetComponent<Rigidbody>(); // gets Rigidbody component
+		rb = FindObjectsOfType<Rigidbody>(); // gets Rigidbody component
+        foreach(Rigidbody rbod in rb)
+        {
+            Debug.Log(rbod.ToString());
+        }
 		vel = new float[34]; // holds 32 keys and 1 mod wheel
 		press = new bool[33]; // holds 32 keys
 		sans = new bool[10]; // there are 10 notes in the first line
@@ -139,21 +143,41 @@ public class MoveFocusObject : MonoBehaviour
 		foreach (bool pressed in press) {
 			if (pressed) Megalovania(press, pressed);
 		}
+
+        int multiplr = 2;
 		
 		// if invert is on, it switches round the movement keys
 		if (invert){
-			rb.AddForce((vel[indexes[20]]-vel[indexes[22]]) * speed, 0, (vel[indexes[25]]-vel[indexes[24]]) * speed);
-		} else {
-			rb.AddForce((vel[indexes[22]]-vel[indexes[20]]) * speed, 0, (vel[indexes[24]]-vel[indexes[25]]) * speed);
-		}
+			rb[5].AddForce(0, (vel[indexes[14]] - vel[indexes[15]]) * speed/multiplr, (vel[indexes[14]] - vel[indexes[15]]) * speed);
+            rb[6].AddForce(0, (vel[indexes[16]] - vel[indexes[17]]) * speed/multiplr, (vel[indexes[16]] - vel[indexes[17]]) * speed);
+            rb[7].AddForce(0, (vel[indexes[18]] - vel[indexes[19]]) * speed / multiplr, (vel[indexes[18]] - vel[indexes[19]]) * speed);
+            rb[8].AddForce(0, (vel[indexes[20]] - vel[indexes[21]]) * speed / multiplr, (vel[indexes[20]] - vel[indexes[21]]) * speed);
+            rb[9].AddForce(0, (vel[indexes[22]] - vel[indexes[23]]) * speed / multiplr, (vel[indexes[22]] - vel[indexes[23]]) * speed);
+            rb[10].AddForce(0, (vel[indexes[24]] - vel[indexes[25]]) * speed / multiplr, (vel[indexes[24]] - vel[indexes[25]]) * speed);
+            rb[12].AddForce(0, (vel[indexes[26]] - vel[indexes[27]]) * speed / multiplr, (vel[indexes[26]] - vel[indexes[27]]) * speed);
+            rb[13].AddForce(0, (vel[indexes[28]] - vel[indexes[29]]) * speed / multiplr, (vel[indexes[28]] - vel[indexes[29]]) * speed);
+            rb[14].AddForce(0, (vel[indexes[30]] - vel[indexes[31]]) * speed, (vel[indexes[30]] - vel[indexes[31]]) * speed);
+        } else {
+            rb[5].AddForce(0, (vel[indexes[14]] - vel[indexes[15]]) * speed / multiplr, (vel[indexes[14]] - vel[indexes[15]]) * speed);
+            rb[6].AddForce(0, (vel[indexes[16]] - vel[indexes[17]]) * speed / multiplr, (vel[indexes[16]] - vel[indexes[17]]) * speed);
+            rb[7].AddForce(0, (vel[indexes[18]] - vel[indexes[19]]) * speed / multiplr, (vel[indexes[18]] - vel[indexes[19]]) * speed);
+            rb[8].AddForce(0, (vel[indexes[20]] - vel[indexes[21]]) * speed / multiplr, (vel[indexes[20]] - vel[indexes[21]]) * speed);
+            rb[9].AddForce(0, (vel[indexes[22]] - vel[indexes[23]]) * speed / multiplr, (vel[indexes[22]] - vel[indexes[23]]) * speed);
+            rb[10].AddForce(0, (vel[indexes[24]] - vel[indexes[25]]) * speed / multiplr, (vel[indexes[24]] - vel[indexes[25]]) * speed);
+            rb[12].AddForce(0, (vel[indexes[26]] - vel[indexes[27]]) * speed / multiplr, (vel[indexes[26]] - vel[indexes[27]]) * speed);
+            rb[13].AddForce(0, (vel[indexes[28]] - vel[indexes[29]]) * speed / multiplr, (vel[indexes[28]] - vel[indexes[29]]) * speed);
+            rb[14].AddForce(0, (vel[indexes[30]] - vel[indexes[31]]) * speed / multiplr, (vel[indexes[30]] - vel[indexes[31]]) * speed);
+        }
 		
 		// resets position of focus object
-		/*
+		
 		if (vel[indexes[32]] > 0f) {
-			gameObject.transform.position = new Vector3(0, 0.55f, -7); 
-			rb.velocity = Vector3.zero;
+			gameObject.transform.position = new Vector3(0, 0.55f, -7);
+            foreach (Rigidbody rbod in rb)
+            {
+                rbod.velocity = Vector3.zero;
+            }
 		}
-		*/
 		
 		// keys 1-11 represents sounds
 		if (vel[indexes[1]] > 0f) audioData.clip = woosh;
