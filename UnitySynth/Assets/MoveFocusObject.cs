@@ -25,6 +25,10 @@ public class MoveFocusObject : MonoBehaviour
 	public AudioClip metalgear;
 	public AudioClip sanic;
 	public AudioClip sure;
+	public AudioClip swamp;
+	public AudioClip weed;
+	public AudioClip dziendobry;
+	public AudioClip cena;
 	private bool invert; // represents if controls are inverted or not
 	
 	
@@ -159,7 +163,9 @@ public class MoveFocusObject : MonoBehaviour
 		if (vel[indexes[8]] > 0f) audioData.clip = metalgear;
 		if (vel[indexes[9]] > 0f) audioData.clip = boneless;
 		if (vel[indexes[10]] > 0f) audioData.clip = hurt;
-		if (vel[indexes[11]] > 0f) audioData.clip = sure;
+		if (vel[indexes[11]] > 0f) audioData.clip = swamp;
+		if (vel[indexes[12]] > 0f) audioData.clip = weed;
+		if (vel[indexes[13]] > 0f) audioData.clip = dziendobry;
 		
 		// key 19 toggles invert
 		if (vel[indexes[19]] > 0f) {
