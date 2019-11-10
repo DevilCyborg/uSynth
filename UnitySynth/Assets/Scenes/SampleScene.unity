@@ -830,7 +830,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4879cedeb45a99c4e909f1776352139f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 5
+  megalovania: {fileID: 8300000, guid: 589646bc3cde28c46afd3ddc997e9145, type: 3}
+  bruh: {fileID: 8300000, guid: 0e0d383d0dcf6b44ea8b1892e3aa2476, type: 3}
+  woosh: {fileID: 8300000, guid: 7603777d05e41744898cb4e080498167, type: 3}
 --- !u!82 &1379299555
 AudioSource:
   m_ObjectHideFlags: 0

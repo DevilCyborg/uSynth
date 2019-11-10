@@ -10,18 +10,22 @@ public class MoveFocusObject : MonoBehaviour
 	private bool[] press;
 	private bool[] sans;
 	AudioSource audioData;
-	public AudioClip specialClip;
+	public AudioClip megalovania;
+	public AudioClip bruh;
+	public AudioClip woosh;
+	private bool invert;
 	
 	
 	void Start() {
 		rb = GetComponent<Rigidbody>();
 		rb.freezeRotation = false;
-		vel = new float[33];
+		vel = new float[34];
 		press = new bool[33];
 		sans = new bool[10];
 		for (int i = 0; i < sans.Length; i++){
 			sans[i] = false;
 		}
+		invert = false;
 		audioData = GetComponent<AudioSource>();
 	}
 	
@@ -94,6 +98,7 @@ public class MoveFocusObject : MonoBehaviour
         vel[30] = MidiJack.MidiMaster.GetKey(70);
         vel[31] = MidiJack.MidiMaster.GetKey(71);
         vel[32] = MidiJack.MidiMaster.GetKey(72);
+        vel[33] = MidiJack.MidiMaster.GetKnob(1,0);
 		
 		foreach (float velocity in vel) {
 			if (velocity > 0) audioData.Play(0);
@@ -103,10 +108,25 @@ public class MoveFocusObject : MonoBehaviour
 			if (pressed) Megalovania(press, pressed);
 		}
 		
-		
-        rb.AddForce((vel[22]-vel[20]) * speed, 0, (vel[24]-vel[25]) * speed);
+		if (invert){
+			rb.AddForce((vel[20]-vel[22]) * speed, 0, (vel[25]-vel[24]) * speed);
+		} else {
+			rb.AddForce((vel[22]-vel[20]) * speed, 0, (vel[24]-vel[25]) * speed);
+		}
 		
 		if (vel[32] > 0f) gameObject.transform.position = new Vector3(0, 0.55f, -7);
+		
+		if (vel[1] > 0f) audioData.clip = bruh; 
+		
+		if (vel[2] > 0f) audioData.clip = woosh;
+		
+		if (vel[3] > 0f) {
+			if (invert) {
+				invert = false;
+			} else {
+				invert = true;
+			}
+		}
 	}
 	
 	void Megalovania(bool[] pressArray, bool keyPressed) {
@@ -122,7 +142,7 @@ public class MoveFocusObject : MonoBehaviour
 										if (sans[8]) {
 											if (index == 15){
 												Debug.Log("!");
-												audioData.clip = specialClip;
+												audioData.clip = megalovania;
 												audioData.Play(0);
 											} else {
 												SansFalse();
