@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.13333334, g: 0.13333334, b: 0.13333334, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.0125
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.13333334, g: 0.13333334, b: 0.13333334, a: 1}
@@ -268,7 +268,7 @@ Transform:
   m_GameObject: {fileID: 230627254}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -12.21}
-  m_LocalScale: {x: 12, y: 1.0083, z: 17.563229}
+  m_LocalScale: {x: 120, y: 1, z: 170}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -557,113 +557,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6562f6ab84000f24bbbc61ae7be0526f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camTransform: {fileID: 534669905}
-  shakeDuration: 1
-  shakeAmount: 0.7
-  decreaseFactor: 1
-  originalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &870213319 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2491837785190036040, guid: 561d00b662e363344aa2e0ff2f614577,
@@ -694,7 +587,9 @@ MonoBehaviour:
   boneless: {fileID: 8300000, guid: abba9ee2dd1546f449f680583196fa70, type: 3}
   metalgear: {fileID: 8300000, guid: 8a0586292703d9441994a80bca065089, type: 3}
   sanic: {fileID: 8300000, guid: f9d5f126e91e687419eb4f79f941a458, type: 3}
-  sure: {fileID: 8300000, guid: a70bc258fa6724a47ab2d0d54f527699, type: 3}
+  swamp: {fileID: 8300000, guid: c032fb7445561ca418392316c9fddba3, type: 3}
+  weed: {fileID: 8300000, guid: a70bc258fa6724a47ab2d0d54f527699, type: 3}
+  dziendobry: {fileID: 8300000, guid: 8efafda0d9e124c76b99aacaeffdaf91, type: 3}
 --- !u!82 &870213325
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1172,7 +1067,9 @@ MonoBehaviour:
   boneless: {fileID: 8300000, guid: abba9ee2dd1546f449f680583196fa70, type: 3}
   metalgear: {fileID: 8300000, guid: 8a0586292703d9441994a80bca065089, type: 3}
   sanic: {fileID: 8300000, guid: f9d5f126e91e687419eb4f79f941a458, type: 3}
-  sure: {fileID: 8300000, guid: dd3a7b31f058e304a939cc232f286b09, type: 3}
+  swamp: {fileID: 0}
+  weed: {fileID: 0}
+  dziendobry: {fileID: 0}
 --- !u!82 &1379299555
 AudioSource:
   m_ObjectHideFlags: 0

@@ -164,17 +164,6 @@ public class MoveFocusObject : MonoBehaviour
 		if (vel[indexes[11]] > 0f) audioData.clip = swamp;
 		if (vel[indexes[12]] > 0f) audioData.clip = weed;
 		if (vel[indexes[13]] > 0f) audioData.clip = dziendobry;
-		
-		// key 19 toggles invert
-		if (vel[indexes[19]] > 0f) {
-			if (invert) {
-				invert = false;
-				Debug.Log("UNINVERTED!");
-			} else {
-				invert = true;
-				Debug.Log("INVERTED!");
-			}
-		}
 	}
 	
 	// this code basically tracks progress towards the easter egg: a bonus sound

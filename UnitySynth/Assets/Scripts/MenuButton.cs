@@ -9,6 +9,12 @@ public class MenuButton : MonoBehaviour
 	[SerializeField] Animator animator;
 	//[SerializeField] AnimatorFunctions animatorFunctions;
 	[SerializeField] int thisIndex;
+	public AudioClip sure;
+	AudioSource audioData;
+	
+	void Start(){
+		audioData = (AudioSource) FindObjectOfType<AudioSource>();
+	}
 
     // Update is called once per frame
     void Update()
@@ -25,13 +31,13 @@ public class MenuButton : MonoBehaviour
                 switch (thisIndex)
                 {
                     case 0:
-                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
-                        break;
-                    case 1:
                         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                         break;
+                    case 1:
+                        audioData.clip = sure;
+						audioData.Play(0);
+                        break;
                     case 2:
-                        Debug.Log("QUIT GAME");
                         Application.Quit();
                         break;
                     

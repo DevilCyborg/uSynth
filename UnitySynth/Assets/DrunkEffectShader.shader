@@ -49,8 +49,8 @@
             {
                 fixed4 col = tex2D(_MainTex, i.uv + float2(0, sin(i.vertex.x/_Strength + (_Time[0]*_Speed)) / 20));
                 // just invert the colors
-                float r = 0.95 - col.r;
-                float g = 0.05 + col.g;
+                float r = 0.15 - col.r;
+                float g = 0.1 + col.g;
                 col.r = max(col.r, _HueShift * r);
                 col.g = max(col.g, _HueShift * g);
                 return col;
