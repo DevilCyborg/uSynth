@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MoveFocusObject : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class MoveFocusObject : MonoBehaviour
 			indexes[i+1] = i + 1;
 		}
 		
-		for (int t = 0; t < indexes.Length; t++) {
+		for (int t = 1; t < indexes.Length; t++) {
 			int tmp = indexes[t];
 			int r = Random.Range(t, indexes.Length);
 			indexes[t] = indexes[r];
@@ -51,6 +52,9 @@ public class MoveFocusObject : MonoBehaviour
 		for (int i = 1; i < 12; i++) {
 			if (indexes[i] == 15) indexes[i] = 32;
 		}
+		
+		string word = string.Join(", ", indexes.Select(i => i.ToString()).ToArray());
+		Debug.Log(word);
 	}
 	
     // Update is called once per frame
@@ -129,7 +133,7 @@ public class MoveFocusObject : MonoBehaviour
 			if (vel[i] > 0) audioData.Play(0);
 		}
 		
-		if (vel[33] > 0f) audioData.pitch = 1 + vel[33];
+		if (vel[33] > 0f) audioData.pitch = 0.5f + vel[33];
 		
 		// starts check on Megalovania progress
 		foreach (bool pressed in press) {
