@@ -141,19 +141,12 @@ public class MoveFocusObject : MonoBehaviour
 		}
 		
 		// if invert is on, it switches round the movement keys
+		// also has a shoot into air part
 		if (invert){
-			rb.AddForce((vel[indexes[20]]-vel[indexes[22]]) * speed, 0, (vel[indexes[25]]-vel[indexes[24]]) * speed);
+			rb.AddForce((vel[indexes[20]]-vel[indexes[22]]) * speed, vel[indexes[21]], (vel[indexes[25]]-vel[indexes[24]]) * speed);
 		} else {
-			rb.AddForce((vel[indexes[22]]-vel[indexes[20]]) * speed, 0, (vel[indexes[24]]-vel[indexes[25]]) * speed);
+			rb.AddForce((vel[indexes[22]]-vel[indexes[20]]) * speed, vel[indexes[21]], (vel[indexes[24]]-vel[indexes[25]]) * speed);
 		}
-		
-		// resets position of focus object
-		/*
-		if (vel[indexes[32]] > 0f) {
-			gameObject.transform.position = new Vector3(0, 0.55f, -7); 
-			rb.velocity = Vector3.zero;
-		}
-		*/
 		
 		// keys 1-11 represents sounds
 		if (vel[indexes[1]] > 0f) audioData.clip = woosh;
