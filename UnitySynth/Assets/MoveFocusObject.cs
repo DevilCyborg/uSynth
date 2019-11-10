@@ -9,6 +9,7 @@ public class MoveFocusObject : MonoBehaviour
 	private float[] vel; // an array of velocities from key presses
 	private bool[] press; // an array of bools from key presses
 	private bool[] sans; // an array of bools to track determination
+	private int[] indexes; // indexes for random control schemes
 	AudioSource audioData; // AudioSource component object
 	// the following are audio clips representing memes, as well as the default woosh sound
 	public AudioClip megalovania;
@@ -36,6 +37,20 @@ public class MoveFocusObject : MonoBehaviour
 		}
 		invert = false; // nobody starts with invert, nobody.
 		audioData = GetComponent<AudioSource>(); // gets AudioSource component
+		indexes = new int[33];
+		for (int i = 0; i < indexes.Length-1; i++) {
+			indexes[i+1] = i + 1;
+		}
+		
+		for (int t = 0; t < indexes.Length; t++) {
+			int tmp = indexes[t];
+			int r = Random.Range(t, indexes.Length);
+			indexes[t] = indexes[r];
+			indexes[r] = tmp;
+		}
+		for (int i = 1; i < 12; i++) {
+			if (indexes[i] == 15) indexes[i] = 32;
+		}
 	}
 	
     // Update is called once per frame
@@ -110,9 +125,11 @@ public class MoveFocusObject : MonoBehaviour
         vel[33] = MidiJack.MidiMaster.GetKnob(1,0);
 		
 		// plays current audioclip on keypress
-		foreach (float velocity in vel) {
-			if (velocity > 0) audioData.Play(0);
+		for (int i = 1; i < 33; i++) {
+			if (vel[i] > 0) audioData.Play(0);
 		}
+		
+		if (vel[33] > 0f) audioData.pitch = 1 + vel[33];
 		
 		// starts check on Megalovania progress
 		foreach (bool pressed in press) {
@@ -121,36 +138,40 @@ public class MoveFocusObject : MonoBehaviour
 		
 		// if invert is on, it switches round the movement keys
 		if (invert){
-			rb.AddForce((vel[20]-vel[22]) * speed, 0, (vel[25]-vel[24]) * speed);
+			rb.AddForce((vel[indexes[20]]-vel[indexes[22]]) * speed, 0, (vel[indexes[25]]-vel[indexes[24]]) * speed);
 		} else {
-			rb.AddForce((vel[22]-vel[20]) * speed, 0, (vel[24]-vel[25]) * speed);
+			rb.AddForce((vel[indexes[22]]-vel[indexes[20]]) * speed, 0, (vel[indexes[24]]-vel[indexes[25]]) * speed);
 		}
 		
 		// resets position of focus object
-		if (vel[32] > 0f) {
+		/*
+		if (vel[indexes[32]] > 0f) {
 			gameObject.transform.position = new Vector3(0, 0.55f, -7); 
 			rb.velocity = Vector3.zero;
 		}
+		*/
 		
 		// keys 1-11 represents sounds
-		if (vel[1] > 0f) audioData.clip = woosh;
-		if (vel[2] > 0f) audioData.clip = bruh; 
-		if (vel[3] > 0f) audioData.clip = slap;
-		if (vel[4] > 0f) audioData.clip = kurwa;
-		if (vel[5] > 0f) audioData.clip = wow;
-		if (vel[6] > 0f) audioData.clip = sanic;
-		if (vel[7] > 0f) audioData.clip = hellothere;
-		if (vel[8] > 0f) audioData.clip = metalgear;
-		if (vel[9] > 0f) audioData.clip = boneless;
-		if (vel[10] > 0f) audioData.clip = hurt;
-		if (vel[11] > 0f) audioData.clip = sure;
+		if (vel[indexes[1]] > 0f) audioData.clip = woosh;
+		if (vel[indexes[2]] > 0f) audioData.clip = bruh; 
+		if (vel[indexes[3]] > 0f) audioData.clip = slap;
+		if (vel[indexes[4]] > 0f) audioData.clip = kurwa;
+		if (vel[indexes[5]] > 0f) audioData.clip = wow;
+		if (vel[indexes[6]] > 0f) audioData.clip = sanic;
+		if (vel[indexes[7]] > 0f) audioData.clip = hellothere;
+		if (vel[indexes[8]] > 0f) audioData.clip = metalgear;
+		if (vel[indexes[9]] > 0f) audioData.clip = boneless;
+		if (vel[indexes[10]] > 0f) audioData.clip = hurt;
+		if (vel[indexes[11]] > 0f) audioData.clip = sure;
 		
 		// key 19 toggles invert
-		if (vel[19] > 0f) {
+		if (vel[indexes[19]] > 0f) {
 			if (invert) {
 				invert = false;
+				Debug.Log("UNINVERTED!");
 			} else {
 				invert = true;
+				Debug.Log("INVERTED!");
 			}
 		}
 	}
