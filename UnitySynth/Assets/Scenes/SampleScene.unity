@@ -559,6 +559,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   camTransform: {fileID: 534669905}
   shakeDuration: 1
   shakeAmount: 0.7
@@ -862,7 +874,7 @@ MonoBehaviour:
   boneless: {fileID: 8300000, guid: abba9ee2dd1546f449f680583196fa70, type: 3}
   metalgear: {fileID: 8300000, guid: 8a0586292703d9441994a80bca065089, type: 3}
   sanic: {fileID: 8300000, guid: f9d5f126e91e687419eb4f79f941a458, type: 3}
-  sure: {fileID: 8300000, guid: 94db49b89253f9c42a0ba0f240930f44, type: 3}
+  sure: {fileID: 8300000, guid: dd3a7b31f058e304a939cc232f286b09, type: 3}
 --- !u!82 &1379299555
 AudioSource:
   m_ObjectHideFlags: 0
