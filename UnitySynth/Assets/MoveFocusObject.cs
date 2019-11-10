@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class MoveFocusObject : MonoBehaviour
 {
-	Rigidbody rb;
-	public float speed = 5f;
-	private float[] vel;
-	private bool[] press;
-	private bool[] sans;
-	AudioSource audioData;
+	Rigidbody rb; // represents the Rigidbody component of the focus item
+	public float speed = 5f; // a multiplier for speed with note velocity
+	private float[] vel; // an array of velocities from key presses
+	private bool[] press; // an array of bools from key presses
+	private bool[] sans; // an array of bools to track determination
+	AudioSource audioData; // AudioSource component object
+	// the following are audio clips representing memes, as well as the default woosh sound
 	public AudioClip megalovania;
 	public AudioClip bruh;
 	public AudioClip woosh;
@@ -22,20 +23,19 @@ public class MoveFocusObject : MonoBehaviour
 	public AudioClip metalgear;
 	public AudioClip sanic;
 	public AudioClip sure;
-	private bool invert;
+	private bool invert; // represents if controls are inverted or not
 	
 	
 	void Start() {
-		rb = GetComponent<Rigidbody>();
-		rb.freezeRotation = false;
-		vel = new float[34];
-		press = new bool[33];
-		sans = new bool[10];
+		rb = GetComponent<Rigidbody>(); // gets Rigidbody component
+		vel = new float[34]; // holds 32 keys and 1 mod wheel
+		press = new bool[33]; // holds 32 keys
+		sans = new bool[10]; // there are 10 notes in the first line
 		for (int i = 0; i < sans.Length; i++){
-			sans[i] = false;
+			sans[i] = false; // sets all bools in sans array to false
 		}
-		invert = false;
-		audioData = GetComponent<AudioSource>();
+		invert = false; // nobody starts with invert, nobody.
+		audioData = GetComponent<AudioSource>(); // gets AudioSource component
 	}
 	
     // Update is called once per frame
@@ -109,44 +109,43 @@ public class MoveFocusObject : MonoBehaviour
         vel[32] = MidiJack.MidiMaster.GetKey(72);
         vel[33] = MidiJack.MidiMaster.GetKnob(1,0);
 		
+		// plays current audioclip on keypress
 		foreach (float velocity in vel) {
 			if (velocity > 0) audioData.Play(0);
 		}
 		
+		// starts check on Megalovania progress
 		foreach (bool pressed in press) {
 			if (pressed) Megalovania(press, pressed);
 		}
 		
+		// if invert is on, it switches round the movement keys
 		if (invert){
 			rb.AddForce((vel[20]-vel[22]) * speed, 0, (vel[25]-vel[24]) * speed);
 		} else {
 			rb.AddForce((vel[22]-vel[20]) * speed, 0, (vel[24]-vel[25]) * speed);
 		}
 		
-		if (vel[32] > 0f) gameObject.transform.position = new Vector3(0, 0.55f, -7);
+		// resets position of focus object
+		if (vel[32] > 0f) {
+			gameObject.transform.position = new Vector3(0, 0.55f, -7); 
+			rb.velocity = Vector3.zero;
+		}
 		
+		// keys 1-11 represents sounds
 		if (vel[1] > 0f) audioData.clip = woosh;
-		
 		if (vel[2] > 0f) audioData.clip = bruh; 
-		
 		if (vel[3] > 0f) audioData.clip = slap;
-		
 		if (vel[4] > 0f) audioData.clip = kurwa;
-		
 		if (vel[5] > 0f) audioData.clip = wow;
-		
 		if (vel[6] > 0f) audioData.clip = sanic;
-		
 		if (vel[7] > 0f) audioData.clip = hellothere;
-		
 		if (vel[8] > 0f) audioData.clip = metalgear;
-		
 		if (vel[9] > 0f) audioData.clip = boneless;
-		
 		if (vel[10] > 0f) audioData.clip = hurt;
-		
 		if (vel[11] > 0f) audioData.clip = sure;
 		
+		// key 19 toggles invert
 		if (vel[19] > 0f) {
 			if (invert) {
 				invert = false;
@@ -156,6 +155,7 @@ public class MoveFocusObject : MonoBehaviour
 		}
 	}
 	
+	// this code basically tracks progress towards the easter egg: a bonus sound
 	void Megalovania(bool[] pressArray, bool keyPressed) {
 		int index = System.Array.IndexOf(pressArray, keyPressed);
 		if (sans[0]) {
@@ -230,6 +230,7 @@ public class MoveFocusObject : MonoBehaviour
 		}
 	}
 	
+	// a method to help set all bools to false
 	void SansFalse() {
 		for (int i = 0; i < sans.Length; i++){
 			sans[i] = false;
