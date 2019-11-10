@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 230627256}
   - component: {fileID: 230627255}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -557,10 +557,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6562f6ab84000f24bbbc61ae7be0526f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   camTransform: {fileID: 534669905}
   shakeDuration: 1
   shakeAmount: 0.7
   decreaseFactor: 1
+  originalPos: {x: 0, y: 0, z: 0}
 --- !u!1001 &911887354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -853,7 +856,7 @@ MonoBehaviour:
   woosh: {fileID: 8300000, guid: 7603777d05e41744898cb4e080498167, type: 3}
   slap: {fileID: 8300000, guid: 4ec38fa7d86ec8744815d1924a3ba48e, type: 3}
   kurwa: {fileID: 8300000, guid: 904071576cffcdb4186919ae742ec785, type: 3}
-  wow: {fileID: 8300000, guid: 12e553a9926e60940a8aa20b08d410a6, type: 3}
+  wow: {fileID: 8300000, guid: d19ab2f1e3dfd3141b6cd86171facfff, type: 3}
   hurt: {fileID: 8300000, guid: ff7eff61a6bca5e44ad4205ea6330f5c, type: 3}
   hellothere: {fileID: 8300000, guid: a1a099a0497c3de4ab0862f1a2669ba1, type: 3}
   boneless: {fileID: 8300000, guid: abba9ee2dd1546f449f680583196fa70, type: 3}

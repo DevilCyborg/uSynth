@@ -117,6 +117,8 @@ public class MoveFocusObject : MonoBehaviour
 			if (pressed) Megalovania(press, pressed);
 		}
 		
+		audioData.pitch = (vel[33] + 1);
+		
 		if (invert){
 			rb.AddForce((vel[20]-vel[22]) * speed, 0, (vel[25]-vel[24]) * speed);
 		} else {
