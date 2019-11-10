@@ -5,7 +5,7 @@ using System.Linq;
 
 public class MoveFocusObject : MonoBehaviour
 {
-	Rigidbody rb; // represents the Rigidbody component of the focus item
+	Rigidbody[] rb; // represents the Rigidbody component of the focus item
 	public float speed = 5f; // a multiplier for speed with note velocity
 	private float[] vel; // an array of velocities from key presses
 	private bool[] press; // an array of bools from key presses
@@ -28,10 +28,14 @@ public class MoveFocusObject : MonoBehaviour
 	public AudioClip weed;
 	public AudioClip dziendobry;
 	private bool invert; // represents if controls are inverted or not
-	
-	
+
+
 	void Start() {
-		rb = GetComponent<Rigidbody>(); // gets Rigidbody component
+		rb = FindObjectsOfType<Rigidbody>(); // gets Rigidbody component
+        foreach(Rigidbody rbod in rb)
+        {
+            Debug.Log(rbod.ToString());
+        }
 		vel = new float[34]; // holds 32 keys and 1 mod wheel
 		press = new bool[33]; // holds 32 keys
 		sans = new bool[10]; // there are 10 notes in the first line
@@ -44,7 +48,7 @@ public class MoveFocusObject : MonoBehaviour
 		for (int i = 0; i < indexes.Length-1; i++) {
 			indexes[i+1] = i + 1;
 		}
-		
+
 		for (int t = 1; t < indexes.Length; t++) {
 			int tmp = indexes[t];
 			int r = Random.Range(t, indexes.Length);
@@ -54,11 +58,11 @@ public class MoveFocusObject : MonoBehaviour
 		for (int i = 1; i < 12; i++) {
 			if (indexes[i] == 15) indexes[i] = 32;
 		}
-		
+
 		string word = string.Join(", ", indexes.Select(i => i.ToString()).ToArray());
 		Debug.Log(word);
 	}
-	
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -82,7 +86,7 @@ public class MoveFocusObject : MonoBehaviour
         press[17] = MidiJack.MidiMaster.GetKeyDown(57);
         press[18] = MidiJack.MidiMaster.GetKeyDown(58);
         press[19] = MidiJack.MidiMaster.GetKeyDown(59);
-        press[20] = MidiJack.MidiMaster.GetKeyDown(60); 
+        press[20] = MidiJack.MidiMaster.GetKeyDown(60);
         press[21] = MidiJack.MidiMaster.GetKeyDown(61);
         press[22] = MidiJack.MidiMaster.GetKeyDown(62);
         press[23] = MidiJack.MidiMaster.GetKeyDown(63);
@@ -95,7 +99,7 @@ public class MoveFocusObject : MonoBehaviour
         press[30] = MidiJack.MidiMaster.GetKeyDown(70);
         press[31] = MidiJack.MidiMaster.GetKeyDown(71);
         press[32] = MidiJack.MidiMaster.GetKeyDown(72);
-		
+
 		vel[1] = MidiJack.MidiMaster.GetKey(41);
         vel[2] = MidiJack.MidiMaster.GetKey(42);
         vel[3] = MidiJack.MidiMaster.GetKey(43);
@@ -129,30 +133,58 @@ public class MoveFocusObject : MonoBehaviour
         vel[31] = MidiJack.MidiMaster.GetKey(71);
         vel[32] = MidiJack.MidiMaster.GetKey(72);
         vel[33] = MidiJack.MidiMaster.GetKnob(1,0);
-		
+
 		// plays current audioclip on keypress
 		for (int i = 1; i < 33; i++) {
 			if (vel[i] > 0) audioData.Play(0);
 		}
-		
+
 		if (vel[33] > 0f) audioData.pitch = 0.5f + vel[33];
-		
+
 		// starts check on Megalovania progress
 		foreach (bool pressed in press) {
 			if (pressed) Megalovania(press, pressed);
 		}
-		
+
+        int multiplr = 2;
+
 		// if invert is on, it switches round the movement keys
 		// also has a shoot into air part
 		if (invert){
-			rb.AddForce((vel[indexes[20]]-vel[indexes[22]]) * speed, vel[indexes[21]], (vel[indexes[25]]-vel[indexes[24]]) * speed);
-		} else {
-			rb.AddForce((vel[indexes[22]]-vel[indexes[20]]) * speed, vel[indexes[21]], (vel[indexes[24]]-vel[indexes[25]]) * speed);
+			rb[5].AddForce(0, (vel[indexes[14]] - vel[indexes[15]]) * speed/multiplr, (vel[indexes[14]] - vel[indexes[15]]) * speed);
+            rb[6].AddForce(0, (vel[indexes[16]] - vel[indexes[17]]) * speed/multiplr, (vel[indexes[16]] - vel[indexes[17]]) * speed);
+            rb[7].AddForce(0, (vel[indexes[18]] - vel[indexes[19]]) * speed / multiplr, (vel[indexes[18]] - vel[indexes[19]]) * speed);
+            rb[8].AddForce(0, (vel[indexes[20]] - vel[indexes[21]]) * speed / multiplr, (vel[indexes[20]] - vel[indexes[21]]) * speed);
+            rb[9].AddForce(0, (vel[indexes[22]] - vel[indexes[23]]) * speed / multiplr, (vel[indexes[22]] - vel[indexes[23]]) * speed);
+            rb[10].AddForce(0, (vel[indexes[24]] - vel[indexes[25]]) * speed / multiplr, (vel[indexes[24]] - vel[indexes[25]]) * speed);
+            rb[12].AddForce(0, (vel[indexes[26]] - vel[indexes[27]]) * speed / multiplr, (vel[indexes[26]] - vel[indexes[27]]) * speed);
+            rb[13].AddForce(0, (vel[indexes[28]] - vel[indexes[29]]) * speed / multiplr, (vel[indexes[28]] - vel[indexes[29]]) * speed);
+            rb[14].AddForce(0, (vel[indexes[30]] - vel[indexes[31]]) * speed, (vel[indexes[30]] - vel[indexes[31]]) * speed);
+        } else {
+            rb[5].AddForce(0, (vel[indexes[14]] - vel[indexes[15]]) * speed / multiplr, (vel[indexes[14]] - vel[indexes[15]]) * speed);
+            rb[6].AddForce(0, (vel[indexes[16]] - vel[indexes[17]]) * speed / multiplr, (vel[indexes[16]] - vel[indexes[17]]) * speed);
+            rb[7].AddForce(0, (vel[indexes[18]] - vel[indexes[19]]) * speed / multiplr, (vel[indexes[18]] - vel[indexes[19]]) * speed);
+            rb[8].AddForce(0, (vel[indexes[20]] - vel[indexes[21]]) * speed / multiplr, (vel[indexes[20]] - vel[indexes[21]]) * speed);
+            rb[9].AddForce(0, (vel[indexes[22]] - vel[indexes[23]]) * speed / multiplr, (vel[indexes[22]] - vel[indexes[23]]) * speed);
+            rb[10].AddForce(0, (vel[indexes[24]] - vel[indexes[25]]) * speed / multiplr, (vel[indexes[24]] - vel[indexes[25]]) * speed);
+            rb[12].AddForce(0, (vel[indexes[26]] - vel[indexes[27]]) * speed / multiplr, (vel[indexes[26]] - vel[indexes[27]]) * speed);
+            rb[13].AddForce(0, (vel[indexes[28]] - vel[indexes[29]]) * speed / multiplr, (vel[indexes[28]] - vel[indexes[29]]) * speed);
+            rb[14].AddForce(0, (vel[indexes[30]] - vel[indexes[31]]) * speed / multiplr, (vel[indexes[30]] - vel[indexes[31]]) * speed);
+        }
+
+		// resets position of focus object
+
+		if (vel[indexes[32]] > 0f) {
+			gameObject.transform.position = new Vector3(0, 0.55f, -7);
+            foreach (Rigidbody rbod in rb)
+            {
+                rbod.velocity = Vector3.zero;
+            }
 		}
-		
+
 		// keys 1-11 represents sounds
 		if (vel[indexes[1]] > 0f) audioData.clip = woosh;
-		if (vel[indexes[2]] > 0f) audioData.clip = bruh; 
+		if (vel[indexes[2]] > 0f) audioData.clip = bruh;
 		if (vel[indexes[3]] > 0f) audioData.clip = slap;
 		if (vel[indexes[4]] > 0f) audioData.clip = kurwa;
 		if (vel[indexes[5]] > 0f) audioData.clip = wow;
@@ -165,7 +197,7 @@ public class MoveFocusObject : MonoBehaviour
 		if (vel[indexes[12]] > 0f) audioData.clip = weed;
 		if (vel[indexes[13]] > 0f) audioData.clip = dziendobry;
 	}
-	
+
 	// this code basically tracks progress towards the easter egg: a bonus sound
 	void Megalovania(bool[] pressArray, bool keyPressed) {
 		int index = System.Array.IndexOf(pressArray, keyPressed);
@@ -240,7 +272,7 @@ public class MoveFocusObject : MonoBehaviour
 			SansFalse();
 		}
 	}
-	
+
 	// a method to help set all bools to false
 	void SansFalse() {
 		for (int i = 0; i < sans.Length; i++){
