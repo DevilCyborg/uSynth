@@ -24,11 +24,9 @@ public class MoveFocusObject : MonoBehaviour
 	public AudioClip boneless;
 	public AudioClip metalgear;
 	public AudioClip sanic;
-	public AudioClip sure;
 	public AudioClip swamp;
 	public AudioClip weed;
 	public AudioClip dziendobry;
-	public AudioClip cena;
 	private bool invert; // represents if controls are inverted or not
 	
 	
