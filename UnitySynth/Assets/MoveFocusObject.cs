@@ -13,6 +13,15 @@ public class MoveFocusObject : MonoBehaviour
 	public AudioClip megalovania;
 	public AudioClip bruh;
 	public AudioClip woosh;
+	public AudioClip slap;
+	public AudioClip kurwa;
+	public AudioClip wow;
+	public AudioClip hurt;
+	public AudioClip hellothere;
+	public AudioClip boneless;
+	public AudioClip metalgear;
+	public AudioClip sanic;
+	public AudioClip sure;
 	private bool invert;
 	
 	
@@ -116,11 +125,29 @@ public class MoveFocusObject : MonoBehaviour
 		
 		if (vel[32] > 0f) gameObject.transform.position = new Vector3(0, 0.55f, -7);
 		
-		if (vel[1] > 0f) audioData.clip = bruh; 
+		if (vel[1] > 0f) audioData.clip = woosh;
 		
-		if (vel[2] > 0f) audioData.clip = woosh;
+		if (vel[2] > 0f) audioData.clip = bruh; 
 		
-		if (vel[3] > 0f) {
+		if (vel[3] > 0f) audioData.clip = slap;
+		
+		if (vel[4] > 0f) audioData.clip = kurwa;
+		
+		if (vel[5] > 0f) audioData.clip = wow;
+		
+		if (vel[6] > 0f) audioData.clip = sanic;
+		
+		if (vel[7] > 0f) audioData.clip = hellothere;
+		
+		if (vel[8] > 0f) audioData.clip = metalgear;
+		
+		if (vel[9] > 0f) audioData.clip = boneless;
+		
+		if (vel[10] > 0f) audioData.clip = hurt;
+		
+		if (vel[11] > 0f) audioData.clip = sure;
+		
+		if (vel[19] > 0f) {
 			if (invert) {
 				invert = false;
 			} else {
