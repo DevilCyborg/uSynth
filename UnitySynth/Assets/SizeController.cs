@@ -5,11 +5,10 @@ using UnityEngine;
 public class SizeController : MonoBehaviour
 {
     private float[] vel;
-    private float vel1;
     // Start is called before the first frame update
     void Start()
     {
-        vel = new float[33];
+        vel = new float[35];
     }
 
     // Update is called once per frame
@@ -49,12 +48,13 @@ public class SizeController : MonoBehaviour
         vel[30] = MidiJack.MidiMaster.GetKey(70);
         vel[31] = MidiJack.MidiMaster.GetKey(71);
         vel[32] = MidiJack.MidiMaster.GetKey(72);
+        vel[34] = MidiJack.MidiMaster.GetKnob(1,0);
 
 
         gameObject.transform.localScale += new Vector3(vel[20],0,0);
         gameObject.transform.localScale -= new Vector3(vel[21], 0, 0);
-        gameObject.transform.localScale += new Vector3(0, vel[22], 0);
-        gameObject.transform.localScale -= new Vector3(0, vel[23], 0);
+        gameObject.transform.localScale = new Vector3(1, vel[34], 1);
+        gameObject.transform.localScale -= new Vector3(0, vel[32], 0);
         gameObject.transform.localScale += new Vector3(0, 0, vel[24]);
         gameObject.transform.localScale -= new Vector3(0, 0, vel[25]);
 
